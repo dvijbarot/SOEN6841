@@ -179,8 +179,13 @@
                         
                     </form>
         </table>
+        
 
     </div>
+    <br>
+                    <label for="" class="sub-text" style="font-weight: 280;">Join as a Doctor or Cousellor&#63; </label>
+                    <a href="signup.php" class="hover-link1 non-style-link" >Register</a>
+                    <br><br><br>
 </center>
 </body>
 </html>
