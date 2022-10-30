@@ -17,9 +17,6 @@
      
 
     <?php
- //lalalalalalalalalalala
-    //learn from w3schools.com
-    //Unset all the server side variables
 
     session_start();
 
@@ -27,7 +24,7 @@
     $_SESSION["usertype"]="";
     
     // Set the new timezone
-    date_default_timezone_set('Asia/Kolkata');
+    date_default_timezone_set('US/Eastern');
     $date = date('Y-m-d');
 
     $_SESSION["date"]=$date;
@@ -94,7 +91,19 @@
                 }else{
                     $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
                 }
+            }elseif($utype=='c'){
+                $checker = $database->query("select * from counselor where cemail='$email' and copassword='$password'");
+                if ($checker->num_rows==1){
 
+
+                    //   counselor dashbord
+                    $_SESSION['user']=$email;
+                    $_SESSION['usertype']='c';
+                    header('location: counselor/index.php');
+
+                }else{
+                    $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Wrong credentials: Invalid email or password</label>';
+                }
             }
             
         }else{
@@ -185,8 +194,13 @@
 
     </div>
     <br>
-                    <label for="" class="sub-text" style="font-weight: 280;">Join as a Doctor or Cousellor&#63; </label>
-                    <a href="dcsignup.php" class="hover-link1 non-style-link" >Register</a>
+                    <label for="" class="sub-text" style="font-weight: 280;">Join as a Doctor&#63; </label>
+                    <a href="doc-signup.php" class="hover-link1 non-style-link" >Register</a>
+                    <br>
+
+    <br>
+                    <label for="" class="sub-text" style="font-weight: 280;">Join as a Counsellor&#63; </label>
+                    <a href="coun-signup.php" class="hover-link1 non-style-link" >Register</a>
                     <br><br><br>
 </center>
 </body>

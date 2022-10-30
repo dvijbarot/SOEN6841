@@ -23,7 +23,7 @@ $_SESSION["user"]="";
 $_SESSION["usertype"]="";
 
 // Set the new timezone
-date_default_timezone_set('Asia/Kolkata');
+date_default_timezone_set('US/Eastern');
 $date = date('Y-m-d');
 
 $_SESSION["date"]=$date;
@@ -34,17 +34,17 @@ if($_POST){
 
     
 
-    $_SESSION["personal"]=array(
+    $_SESSION["personal1"]=array(
         'fname'=>$_POST['fname'],
         'lname'=>$_POST['lname'],
+        'cRegid'=>$_POST['cRegid'],
         'address'=>$_POST['address'],
-        'nic'=>$_POST['nic'],
         'dob'=>$_POST['dob']
     );
 
 
-    print_r($_SESSION["personal"]);
-    header("location: create-account.php");
+    print_r($_SESSION["personal1"]);
+    header("location: coun-create-account.php");
 
 
 
@@ -79,22 +79,22 @@ if($_POST){
             </tr>
             <tr>
                 <td class="label-td" colspan="2">
+                    <label for="cRegid" class="form-label">Registeration Number: </label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label-td" colspan="2">
+                    <input type="text" name="cRegid" class="input-text" placeholder="Registeration Number" required>
+                </td>
+            </tr>
+            <tr>
+                <td class="label-td" colspan="2">
                     <label for="address" class="form-label">Address: </label>
                 </td>
             </tr>
             <tr>
                 <td class="label-td" colspan="2">
                     <input type="text" name="address" class="input-text" placeholder="Address" required>
-                </td>
-            </tr>
-            <tr>
-                <td class="label-td" colspan="2">
-                    <label for="nic" class="form-label">NIC: </label>
-                </td>
-            </tr>
-            <tr>
-                <td class="label-td" colspan="2">
-                    <input type="text" name="nic" class="input-text" placeholder="NIC Number" required>
                 </td>
             </tr>
             <tr>

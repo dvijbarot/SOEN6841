@@ -1,0 +1,238 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Save form Data in a Text File using JavaScript</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+    	div {
+            padding: 10px;
+            background-color: #f6f6f6;
+            overflow: hidden;
+        }
+    	input[type=text], textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type=button]{ 
+            width: auto;
+            float: right;
+            cursor: pointer;
+            padding: 7px;
+        }
+    </style>
+</head>
+<body>
+    <div>
+       
+
+
+  <form>
+        <div> <p> 
+            1. Over the past 2 weeks, how often have you been bothered by any of the following problems: <b>Little interest </b>or <b>pleasure in doing things</b>?</p>
+            <input class='ans1' type="radio" id="1ans1" name= "ans1" value="Not At all">
+            <label for="1ans1">Not at all</label><br>
+
+            <input class='ans1'type="radio" id="1ans2"  name= "ans1" value="Several Days">
+            <label for="1ans2">Several Days</label><br>
+
+            <input class='ans1'type="radio" id="1ans3" name= "ans1" value="More Than Half the Days">
+            <label for="1ans3">More Than Half the Days</label><br>
+
+            <input class='ans1'type="radio" id="1ans4"  name= "ans1" value="Nearly Every Day">
+            <label for="1ans4">Nearly Every Day</label><br>
+        </div>
+
+        <div> <p> 
+            2. Over the past 2 weeks, how often have you been bothered by any of the following problems: <b> Feeling down, depressed or hopless? </b></p>
+            <input type="radio" id="2ans1" name= "ans2" value="Not At all">
+            <label for="1ans1">Not at all</label><br>
+
+            <input type="radio" id="2ans2" name= "ans2" value="Several Days">
+            <label for="2ans2">Several Days</label><br>
+
+            <input type="radio" id="2ans3" name= "ans2" value="More Than Half the Days">
+            <label for="2ans3">More Than Half the Days</label><br>
+
+            <input type="radio" id="2ans4" name= "ans2" value="Nearly Every Day">
+            <label for="2ans4">Nearly Every Day</label><br>
+        </div>
+
+        <div> <p> 
+            3. Over the past 2 weeks, how often have you been bothered by any of the following problems: <b> Trouble falling asleep, staying asleep, or sleeping too much? </b></p>
+            <input type="radio" id="3ans1" name= "ans3" value="Not At all">
+            <label for="3ans1">Not at all</label><br>
+
+            <input type="radio" id="3ans2"  name= "ans3" value="Several Days">
+            <label for="3ans2">Several Days</label><br>
+
+            <input type="radio" id="3ans3" name= "ans3" value="More Than Half the Days">
+            <label for="3ans3">More Than Half the Days</label><br>
+
+            <input type="radio" id="3ans4"  name= "ans3" value="Nearly Every Day">
+            <label for="3ans4">Nearly Every Day</label><br>
+        </div>
+
+        <div> <p> 
+            4. Over the past 2 weeks, how often have you been bothered by any of the following problems: <b> Feeling tired or having little energy?</b></p>
+            <input type="radio" id="4ans1" name= "ans4" value="Not At all">
+            <label for="4ans1">Not at all</label><br>
+
+            <input type="radio" id="4ans2"  name= "ans4" value="Several Days">
+            <label for="4ans2">Several Days</label><br>
+
+            <input type="radio" id="4ans3" name= "ans4" value="More Than Half the Days">
+            <label for="4ans3">More Than Half the Days</label><br>
+
+            <input type="radio" id="4ans4" name= "ans4"  value="Nearly Every Day">
+            <label for="4ans4">Nearly Every Day</label><br>
+        </div>
+
+        <div> <p> 
+            5. Over the past 2 weeks, how often have you been bothered by any of the following problems: <b>Poor appetite or overeating?</b></p>
+            <input type="radio" id="5ans1" name= "ans5"  value="Not At all">
+            <label for="5ans1">Not at all</label><br>
+
+            <input type="radio" id="5ans2" name= "ans5"  value="Several Days">
+            <label for="5ans2">Several Days</label><br>
+
+            <input type="radio" id="5ans3" name= "ans5" value="More Than Half the Days">
+            <label for="5ans3">More Than Half the Days</label><br>
+
+            <input type="radio" id="5ans4" name= "ans5"  value="Nearly Every Day">
+            <label for="5ans4">Nearly Every Day</label><br>
+        </div>
+
+        <div> <p> 
+            6. Over the past 2 weeks, how often have you been bothered by any of the following problems: <b>Feeling bad about yourself - or that you're a failure or have let yourself or your family down</b></p>
+            <input type="radio" id="6ans1" name= "ans6"  value="Not At all">
+            <label for="6ans1">Not at all</label><br>
+
+            <input type="radio" id="6ans2" name= "ans6"  value="Several Days">
+            <label for="6ans2">Several Days</label><br>
+
+            <input type="radio" id="6ans3" name= "ans6"  value="More Than Half the Days">
+            <label for="6ans3">More Than Half the Days</label><br>
+
+            <input type="radio" id="6ans4" name= "ans6"  value="Nearly Every Day">
+            <label for="6ans4">Nearly Every Day</label><br>
+        </div>
+        
+        <div> <p> 
+            7. Over the past 2 weeks, how often have you been bothered by any of the following problems: <b>Trouble concentrating on things, such as reading the newspaper or watching television?</b></p>
+            <input type="radio" id="7ans1" name= "ans7" value="Not At all">
+            <label for="7ans1">Not at all</label><br>
+
+            <input type="radio" id="7ans2" name= "ans7"  value="Several Days">
+            <label for="7ans2">Several Days</label><br>
+
+            <input type="radio" id="7ans3" name= "ans7"  value="More Than Half the Days">
+            <label for="7ans3">More Than Half the Days</label><br>
+
+            <input type="radio" id="7ans4" name= "ans7"  value="Nearly Every Day">
+            <label for="7ans4">Nearly Every Day</label><br>
+        </div>
+
+        <div> <p> 
+            8. Over the past 2 weeks, how often have you been bothered by any of the following problems: <b>Moving or speaking so slowly that other people could have noticed. Or, the opposite - being so fidgety or restless that you have been moving around a lot more than usual?</b></p>
+            <input type="radio" id="8ans1" name= "ans8" value="Not At all">
+            <label for="8ans1">Not at all</label><br>
+
+            <input type="radio" id="8ans2" name= "ans8"  value="Several Days">
+            <label for="8ans2">Several Days</label><br>
+
+            <input type="radio" id="8ans3" name= "ans8" value="More Than Half the Days">
+            <label for="8ans3">More Than Half the Days</label><br>
+
+            <input type="radio" id="8ans4" name= "ans8"  value="Nearly Every Day">
+            <label for="8ans4">Nearly Every Day</label><br>
+        </div>
+
+        <div> <p> 
+            9. Over the past 2 weeks, how often have you been bothered by any of the following problems: <b>Thoughts that you would be better off dead or of hurting yourself in some way?</b></p>
+            <input type="radio" id="9ans1" name= "ans9"  value="Not At all">
+            <label for="9ans1">Not at all</label><br>
+
+            <input type="radio" id="9ans2"  name= "ans9" value="Several Days">
+            <label for="9ans2">Several Days</label><br>
+
+            <input type="radio" id="9ans3" name= "ans9" value="More Than Half the Days">
+            <label for="9ans3">More Than Half the Days</label><br>
+
+            <input type="radio" id="9ans4" name= "ans9"  value="Nearly Every Day">
+            <label for="9ans4">Nearly Every Day</label><br>
+        </div>
+
+
+
+        
+
+
+
+
+        
+
+
+        <!--Add to button to save the data.-->
+        <div>
+            <input type="button" id="bt" value="SUBMIT ASSESSMENT" onclick="saveFile()" />
+        </div>
+         </div>
+  </form>
+
+
+    </body>
+</body>
+<script>
+    let saveFile = () => {
+    debugger;	
+        // Get the data from each element on the form.
+    	var ans1 = document.getElementsByClassName('ans1');
+        var ans2 = document.getElementById('ans2');
+        var ans3 = document.getElementById('ans3');
+        var ans4 = document.getElementById('ans4');
+        var ans5 = document.getElementById('ans5');
+        var ans6 = document.getElementById('ans6');
+        var ans7 = document.getElementById('ans7');
+        var ans8 = document.getElementById('ans8');
+        var ans9 = document.getElementById('ans9');
+
+        window.alert(ans1);
+        window.alert(ans1.value);
+        
+        // This variable stores all the data.
+        let data = 
+            '\r Question1: ' + ans1.value + ' \r\n ' + 
+            'Question2: ' + ans2.value + ' \r\n ' + 
+            'Question3: ' + ans3.value + ' \r\n ' + 
+            'Question4: ' + ans4.value + ' \r\n ' + 
+            'Question5: ' + ans5.value + ' \r\n ' + 
+            'Question6: ' + ans6.value + ' \r\n ' + 
+            'Question7: ' + ans7.value + ' \r\n ' + 
+            'Question8: ' + ans8.value + ' \r\n ' +
+            'Question9: ' + ans9.value;  
+        
+        // Convert the text to BLOB.
+        const textToBLOB = new Blob([data], { type: 'text/plain' });
+        const sFileName = 'formData.txt';	   // The file to save the data.
+
+        let newLink = document.createElement("a");
+        newLink.download = sFileName;
+
+        if (window.webkitURL != null) {
+            newLink.href = window.webkitURL.createObjectURL(textToBLOB);
+        }
+        else {
+            newLink.href = window.URL.createObjectURL(textToBLOB);
+            newLink.style.display = "none";
+            document.body.appendChild(newLink);
+        }
+
+        newLink.click(); 
+    }
+</script>
+</html>
