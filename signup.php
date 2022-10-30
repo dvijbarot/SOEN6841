@@ -23,7 +23,7 @@ $_SESSION["user"]="";
 $_SESSION["usertype"]="";
 
 // Set the new timezone
-date_default_timezone_set('Asia/Kolkata');
+date_default_timezone_set('US/Eastern');
 $date = date('Y-m-d');
 
 $_SESSION["date"]=$date;
@@ -38,7 +38,6 @@ if($_POST){
         'fname'=>$_POST['fname'],
         'lname'=>$_POST['lname'],
         'address'=>$_POST['address'],
-        'nic'=>$_POST['nic'],
         'dob'=>$_POST['dob']
     );
 
@@ -85,16 +84,6 @@ if($_POST){
             <tr>
                 <td class="label-td" colspan="2">
                     <input type="text" name="address" class="input-text" placeholder="Address" required>
-                </td>
-            </tr>
-            <tr>
-                <td class="label-td" colspan="2">
-                    <label for="nic" class="form-label">NIC: </label>
-                </td>
-            </tr>
-            <tr>
-                <td class="label-td" colspan="2">
-                    <input type="text" name="nic" class="input-text" placeholder="NIC Number" required>
                 </td>
             </tr>
             <tr>
