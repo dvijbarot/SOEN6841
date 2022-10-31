@@ -49,7 +49,8 @@ if($_POST){
     $tele=$_POST['tele'];
     $newpassword=$_POST['newpassword'];
     $cpassword=$_POST['cpassword'];
-    
+    // echo "<h2>" . $docRegid . "</h2>";
+
     if ($newpassword==$cpassword){
         $result= $database->query("select * from webuser where email='$email';");
         if($result->num_rows==1){

@@ -14,15 +14,12 @@
 <body>
 <?php
 
-//learn from w3schools.com
-//Unset all the server side variables
 
 session_start();
 
 $_SESSION["user"]="";
 $_SESSION["usertype"]="";
 
-// Set the new timezone
 date_default_timezone_set('US/Eastern');
 $date = date('Y-m-d');
 

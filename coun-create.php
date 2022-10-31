@@ -24,14 +24,11 @@ session_start();
 $_SESSION["user"]="";
 $_SESSION["usertype"]="";
 
-// Set the new timezone
 date_default_timezone_set('US/Eastern');
 $date = date('Y-m-d');
 
 $_SESSION["date"]=$date;
 
-
-//import database
 include("connection.php");
 
 
@@ -42,16 +39,20 @@ if($_POST){
 
     $result= $database->query("select * from webuser");
 
-    $fname=$_SESSION['personal1']['fname'];
-    $lname=$_SESSION['personal1']['lname'];
+    $fname=$_SESSION['personal']['fname'];
+    $lname=$_SESSION['personal']['lname'];
     $name=$fname." ".$lname;
-    $address=$_SESSION['personal1']['address'];
-    $cRegid=$_SESSION['personal1']['cRegid'];
-    $dob=$_SESSION['personal1']['dob'];
+    $address=$_SESSION['personal']['address'];
+    $counRegid=$_SESSION['personal']['counRegid'];
+    $dob=$_SESSION['personal']['dob'];
     $email=$_POST['newemail'];
     $tele=$_POST['tele'];
     $newpassword=$_POST['newpassword'];
     $cpassword=$_POST['cpassword'];
+
+    // echo "<h2>" . $counRegid . "</h2>";
+
+    // echo '<script>alert('$cRegid')</script>';
     
     if ($newpassword==$cpassword){
         $result= $database->query("select * from webuser where email='$email';");
@@ -59,10 +60,10 @@ if($_POST){
             $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Already have an account for this Email address.</label>';
         }else{
             
-            $database->query("insert into counselor(cemail,cname,copassword,caddress,cRegid,ctel,cdob) values('$email','$name','$newpassword','$address','$cRegid','$tele','$dob');");
+            $database->query("insert into counselor(cemail,cname,copassword,cRegid,caddress,cdob,ctel) values('$email','$name','$newpassword','$counRegid','$address','$dob','$tele');");
             $database->query("insert into webuser values('$email','c')");
 
-            print_r("insert into counselor values($cid,'$email','$fname','$lname','$newpassword','$cRegid','$address','$dob','$tele');");
+            print_r("insert into counselor values($cid,'$email','$fname','$lname','$counRegid','$newpassword','$address','$dob','$tele');");
             $_SESSION["user"]=$email;
             $_SESSION["usertype"]="c";
             $_SESSION["username"]=$fname;
@@ -72,10 +73,10 @@ if($_POST){
         }
         
     }else{
-        $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Password Confirmation Error! Reconform Password</label>';
+        $error='<label for="promter" class="form-label" style="color:rgb(255, 62, 62);text-align:center;">Password Conformation Error! Reconfirm Password</label>';
     }
 
-
+    // echo "<h2>" '$_SESSION["usertype"]' "</h2>";
 
     
 }else{
@@ -105,7 +106,6 @@ if($_POST){
                 <td class="label-td" colspan="2">
                     <input type="email" name="newemail" class="input-text" placeholder="Email Address" required>
                 </td>
-                
             </tr>
             <tr>
                 <td class="label-td" colspan="2">
@@ -114,7 +114,7 @@ if($_POST){
             </tr>
             <tr>
                 <td class="label-td" colspan="2">
-                    <input type="tel" name="tele" class="input-text"  placeholder="ex: 1712345678" pattern="[1]{1}[0-9]{9}" >
+                    <input type="tel" name="tele" class="input-text"  placeholder="ex: 0712345678" pattern="[1]{1}[0-9]{9}" >
                 </td>
             </tr>
             <tr>
@@ -137,11 +137,15 @@ if($_POST){
                     <input type="password" name="cpassword" class="input-text" placeholder="Confirm Password" required>
                 </td>
             </tr>
+     
             <tr>
+                
                 <td colspan="2">
                     <?php echo $error ?>
+
                 </td>
             </tr>
+            
             <tr>
                 <td>
                     <input type="reset" value="Reset" class="login-btn btn-primary-soft btn" >
@@ -149,6 +153,7 @@ if($_POST){
                 <td>
                     <input type="submit" value="Sign Up" class="login-btn btn-primary btn">
                 </td>
+
             </tr>
             <tr>
                 <td colspan="2">
@@ -158,6 +163,7 @@ if($_POST){
                     <br><br><br>
                 </td>
             </tr>
+
                     </form>
             </tr>
         </table>
