@@ -26,23 +26,30 @@
     session_start();
 
     if(isset($_SESSION["user"])){
-        if(($_SESSION["user"])=="" or $_SESSION['usertype']!='c'){
+        if(($_SESSION["user"])=="" or $_SESSION['usertype']!='p'){
             header("location: ../login.php");
+        }else{
+            $useremail=$_SESSION["user"];
         }
 
     }else{
         header("location: ../login.php");
     }
     
-    
 
     //import database
     include("../connection.php");
+    $userrow = $database->query("SELECT * from patient where pemail='$useremail'");
+    $userfetch=$userrow->fetch_assoc();
+    $userid= $userfetch["pid"];
+    $username=$userfetch["pname"];
 
-    
+
+    //echo $userid;
+    //echo $username;
     ?>
     <div class="container">
-        <div class="menu">
+    <div class="menu">
             <table class="menu-container" border="0">
                 <tr>
                     <td style="padding:10px" colspan="2">
@@ -52,31 +59,63 @@
                                     <img src="../img/user.png" alt="" width="100%" style="border-radius:50%">
                                 </td>
                                 <td style="padding:0px;margin:0px;">
-                                    <p class="profile-title">Counselor</p>
-                                    <p class="profile-subtitle">counselor@edoc.com</p>
+                                    <p class="profile-title"><?php echo  $username?></p>
+                                    <p class="profile-subtitle"><?php echo substr($useremail,0,22)  ?></p>
                                 </td>
                             </tr>
                             <tr>
                                 <td colspan="2">
-                                <a href="../logout.php" ><input type="button" value="Log out" class="logout-btn btn-primary-soft btn"></a>
+                                    <a href="../logout.php" ><input type="button" value="Log out" class="logout-btn btn-primary-soft btn"></a>
                                 </td>
                             </tr>
                     </table>
                     </td>
                 </tr>
                 <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-dashbord" >
-                        <a href="index.php" class="non-style-link-menu"><div><p class="menu-text">Dashboard</p></a></div></a>
+                    <td class="menu-btn menu-icon-home menu-active menu-icon-home-active" >
+                        <a href="index.php" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">Home</p></a></div></a>
                     </td>
                 </tr>
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-patient  menu-active menu-icon-patient-active">
-                        <a href="patient.php" class="non-style-link-menu  non-style-link-menu-active"><div><p class="menu-text">Patients</p></a></div>
+                <tr class="menu-row">
+                    <td class="menu-btn menu-icon-doctor">
+                        <a href="questionnairesult.php" class="non-style-link-menu"><div><p class="menu-text">Questionnare Result</p></a></div>
                     </td>
                 </tr>
-
+                
             </table>
         </div>
+        <?php       
+
+                    $selecttype="My";
+                    $current="My patients Only";
+                    if($_POST){
+
+                        if(isset($_POST["search"])){
+                            $keyword=$_POST["search12"];
+                            
+                            $sqlmain= "select * from patient where pemail='$keyword' or pname='$keyword' or pname like '$keyword%' or pname like '%$keyword' or pname like '%$keyword%' ";
+                            $selecttype="my";
+                        }
+                        
+                        if(isset($_POST["filter"])){
+                            if($_POST["showonly"]=='all'){
+                                $sqlmain= "select * from patient";
+                                $selecttype="All";
+                                $current="All patients";
+                            }else{
+                                $sqlmain= "select * from appointment inner join patient on patient.pid=appointment.pid inner join schedule on schedule.scheduleid=appointment.scheduleid where schedule.docid=$userid;";
+                                $selecttype="My";
+                                $current="My patients Only";
+                            }
+                        }
+                    }else{
+                        $sqlmain= "select * from appointment inner join patient on patient.pid=appointment.pid inner join schedule on schedule.scheduleid=appointment.scheduleid where schedule.docid=$userid;";
+                        $selecttype="My";
+                    }
+
+
+
+                ?>
         <div class="dash-body">
             <table border="0" width="100%" style=" border-spacing: 0;margin:0;padding:0;margin-top:25px; ">
                 <tr >
@@ -89,11 +128,12 @@
                         
                         <form action="" method="post" class="header-search">
 
-                            <input type="search" name="search" class="input-text header-searchbar" placeholder="Search Patient name or Email" list="patient">&nbsp;&nbsp;
+                            <input type="search" name="search12" class="input-text header-searchbar" placeholder="Search Patient name or Email" list="patient">&nbsp;&nbsp;
                             
                             <?php
                                 echo '<datalist id="patient">';
-                                $list11 = $database->query("select  pname,pemail from patient;");
+                                $list11 = $database->query($sqlmain);
+                               //$list12= $database->query("select * from appointment inner join patient on patient.pid=appointment.pid inner join schedule on schedule.scheduleid=appointment.scheduleid where schedule.docid=1;");
 
                                 for ($y=0;$y<$list11->num_rows;$y++){
                                     $row00=$list11->fetch_assoc();
@@ -107,7 +147,7 @@
 ?>
                             
                        
-                            <input type="Submit" value="Search" class="login-btn btn-primary btn" style="padding-left: 25px;padding-right: 25px;padding-top: 10px;padding-bottom: 10px;">
+                            <input type="Submit" value="Search" name="search" class="login-btn btn-primary btn" style="padding-left: 25px;padding-right: 25px;padding-top: 10px;padding-bottom: 10px;">
                         
                         </form>
                         
@@ -135,23 +175,20 @@
                 
                 <tr>
                     <td colspan="4" style="padding-top:10px;">
-                        <p class="heading-main12" style="margin-left: 45px;font-size:18px;color:rgb(49, 49, 49)">All Patients (<?php echo $list11->num_rows; ?>)</p>
+                        <p class="heading-main12" style="margin-left: 45px;font-size:18px;color:rgb(49, 49, 49)"><?php echo $selecttype." Patients"; ?></p>
                     </td>
                     
                 </tr>
-                <?php
-                    if($_POST){
-                        $keyword=$_POST["search"];
-                        
-                        $sqlmain= "select * from patient where pemail='$keyword' or pname='$keyword' or pname like '$keyword%' or pname like '%$keyword' or pname like '%$keyword%' ";
-                    }else{
-                        $sqlmain= "select * from patient order by pid desc";
+                <tr>
+                   
 
-                    }
+                    </tr>
+                            </table>
 
-
-
-                ?>
+                        </center>
+                    </td>
+                    
+                </tr>
                   
                 <tr>
                    <td colspan="4">
@@ -161,98 +198,47 @@
                         <thead>
                         <tr>
                                 <th class="table-headin">
-                                    
-                                
                                 Name
                                 
                                 </th>
                                 <th class="table-headin">
+
+                                    Total Score
                                     
+                                </th>
                                 
-                                    NIC
-                                    
-                                </th>
-                                <th class="table-headin">
-                                
-                            
-                                Telephone
-                                
-                                </th>
-                                <th class="table-headin">
-                                    Email
-                                </th>
-                                <th class="table-headin">
-                                    
-                                    Date of Birth
-                                    
-                                </th>
-                                <th class="table-headin">
-                                    
-                                    Events
-                                    
-                                </tr>
+                               
                         </thead>
-                        <tbody>
+                        <tbody style="padding:20px">
                         
                             <?php
 
                                 
                                 $result= $database->query($sqlmain);
-
-                                if($result->num_rows==0){
-                                    echo '<tr>
-                                    <td colspan="4">
-                                    <br><br><br><br>
-                                    <center>
-                                    <img src="../img/notfound.svg" width="25%">
-                                    
-                                    <br>
-                                    <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">We  couldnt find anything related to your keywords !</p>
-                                    <a class="non-style-link" href="patient.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Show all Patients &nbsp;</font></button>
-                                    </a>
-                                    </center>
-                                    <br><br><br><br>
-                                    </td>
-                                    </tr>';
-                                    
-                                }
-                                else{
-                                for ( $x=0; $x<$result->num_rows;$x++){
-                                    $row=$result->fetch_assoc();
-                                    $pid=$row["pid"];
-                                    $name=$row["pname"];
-                                    $email=$row["pemail"];
-                                    $nic=$row["pnic"];
-                                    $dob=$row["pdob"];
-                                    $tel=$row["ptel"];
-                                    
-                                    echo '<tr>
-                                        <td> &nbsp;'.
-                                        substr($name,0,35)
+                                //echo $sqlmain;
+                               
+                               
+                                    $total = 0;
+                                    $questionnaire = mysqli_query($database,"SELECT * from questionnaire where pid='$userid'");
+                                    foreach($questionnaire as $data){
+                                        $total += $data['a'];
+                                    }
+                                 
+                                    echo '<tr style="margin:20px;">
+                                        <td style="text-align:center;padding:30px"> &nbsp;'.
+                                        substr($username,0,35)
                                         .'</td>
-                                        <td>
-                                        '.substr($nic,0,12).'
-                                        </td>
-                                        <td>
-                                            '.substr($tel,0,10).'
-                                        </td>
-                                        <td>
-                                        '.substr($email,0,20).'
-                                         </td>
-                                        <td>
-                                        '.substr($dob,0,10).'
+                                        <td style="text-align:center">
+                                        '.$total.'
                                         </td>
                                         <td >
-                                        <div style="display:flex;justify-content: center;">
-                                        
-                                        <a href="?action=view&id='.$pid.'" class="non-style-link"><button  class="btn-primary-soft btn button-icon btn-view"  style="padding-left: 40px;padding-top: 12px;padding-bottom: 12px;margin-top: 10px;"><font class="tn-in-text">View</font></button></a>
                                        
-                                        </div>
                                         </td>
                                     </tr>';
                                     
-                                }
-                            }
+                                    
+                                
+                            
                                  
                             ?>
  
@@ -337,11 +323,6 @@
                             <tr>
                                 <td class="label-td" colspan="2">
                                     <label for="nic" class="form-label">NIC: </label>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="label-td" colspan="2">
-                                '.$nic.'<br><br>
                                 </td>
                             </tr>
                             <tr>

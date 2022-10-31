@@ -14,15 +14,12 @@
 <body>
 <?php
 
-//learn from w3schools.com
-//Unset all the server side variables
 
 session_start();
 
 $_SESSION["user"]="";
 $_SESSION["usertype"]="";
 
-// Set the new timezone
 date_default_timezone_set('US/Eastern');
 $date = date('Y-m-d');
 
@@ -34,25 +31,22 @@ if($_POST){
 
     
 
-    $_SESSION["personal1"]=array(
+    $_SESSION["personal"]=array(
         'fname'=>$_POST['fname'],
         'lname'=>$_POST['lname'],
-        'cRegid'=>$_POST['cRegid'],
         'address'=>$_POST['address'],
+        'counRegid'=>$_POST['counRegid'],
         'dob'=>$_POST['dob']
     );
 
 
-    print_r($_SESSION["personal1"]);
-    header("location: coun-create-account.php");
-
-
+    print_r($_SESSION["personal"]);
+    header("location: coun-create.php");
 
 
 }
 
 ?>
-
 
     <center>
     <div class="container">
@@ -79,22 +73,22 @@ if($_POST){
             </tr>
             <tr>
                 <td class="label-td" colspan="2">
-                    <label for="cRegid" class="form-label">Registeration Number: </label>
-                </td>
-            </tr>
-            <tr>
-                <td class="label-td" colspan="2">
-                    <input type="text" name="cRegid" class="input-text" placeholder="Registeration Number" required>
-                </td>
-            </tr>
-            <tr>
-                <td class="label-td" colspan="2">
                     <label for="address" class="form-label">Address: </label>
                 </td>
             </tr>
             <tr>
                 <td class="label-td" colspan="2">
                     <input type="text" name="address" class="input-text" placeholder="Address" required>
+                </td>
+            </tr>
+            <tr>
+                <td class="label-td" colspan="2">
+                    <label for="counRegid" class="form-label">Registeration Number: </label>
+                </td>
+            </tr>
+            <tr>
+                <td class="label-td" colspan="2">
+                    <input type="text" name="counRegid" class="input-text" placeholder="Registeration Number" required>
                 </td>
             </tr>
             <tr>

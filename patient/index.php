@@ -65,7 +65,7 @@
                                     <img src="../img/user.png" alt="" width="100%" style="border-radius:50%">
                                 </td>
                                 <td style="padding:0px;margin:0px;">
-                                    <p class="profile-title"><?php echo substr($username,0,13)  ?>..</p>
+                                    <p class="profile-title"><?php echo $username  ?></p>
                                     <p class="profile-subtitle"><?php echo substr($useremail,0,22)  ?></p>
                                 </td>
                             </tr>
@@ -80,27 +80,6 @@
                 <tr class="menu-row" >
                     <td class="menu-btn menu-icon-home menu-active menu-icon-home-active" >
                         <a href="index.php" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">Home</p></a></div></a>
-                    </td>
-                </tr>
-                <tr class="menu-row">
-                    <td class="menu-btn menu-icon-doctor">
-                        <a href="doctors.php" class="non-style-link-menu"><div><p class="menu-text">All Doctors</p></a></div>
-                    </td>
-                </tr>
-                
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-session">
-                        <a href="schedule.php" class="non-style-link-menu"><div><p class="menu-text">Scheduled Sessions</p></div></a>
-                    </td>
-                </tr>
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-appoinment">
-                        <a href="appointment.php" class="non-style-link-menu"><div><p class="menu-text">My Bookings</p></a></div>
-                    </td>
-                </tr>
-                <tr class="menu-row" >
-                    <td class="menu-btn menu-icon-settings">
-                        <a href="settings.php" class="non-style-link-menu"><div><p class="menu-text">Settings</p></a></div>
                     </td>
                 </tr>
                 
@@ -124,7 +103,7 @@
                                 </p>
                                 <p class="heading-sub12" style="padding: 0;margin: 0;">
                                     <?php 
-                                date_default_timezone_set('Asia/Kolkata');
+                                date_default_timezone_set('US/Eastern');
         
                                 $today = date('Y-m-d');
                                 echo $today;
@@ -155,8 +134,6 @@
                             <h3>Welcome!</h3>
                             <h1><?php echo $username  ?>.</h1>
                             <p>Haven't any idea about doctors? no problem let's jumping to 
-                                <a href="doctors.php" class="non-style-link"><b>"All Doctors"</b></a> section or 
-                                <a href="schedule.php" class="non-style-link"><b>"Sessions"</b> </a><br>
                                 Track your past and future appointments history.<br>Also find out the expected arrival time of your doctor or medical consultant.<br><br>
                             </p>
                             
@@ -181,8 +158,8 @@
     ?>
                                 
                            
-                                <input type="Submit" value="Take Assessment" class="login-btn btn-primary btn" style="padding-left: 25px;padding-right: 25px;padding-top: 10px;padding-bottom: 10px;">
-                            
+                                <!-- <input type="Submit" value="Take Assessment" class="login-btn btn-primary btn" style="padding-left: 25px;padding-right: 25px;padding-top: 10px;padding-bottom: 10px;"> -->
+                                <a href="questionnaire.php" value="" class="login-btn btn-primary btn" style="padding-left: 25px;padding-right: 25px;padding-top: 10px;padding-bottom: 10px;">Take Assessment</a>
                             <br>
                             <br>
                             
@@ -281,114 +258,7 @@
 
 
                                 </td>
-                                <td>
-
-
-                            
-                                    <p style="font-size: 20px;font-weight:600;padding-left: 40px;" class="anime">Your Upcoming Booking</p>
-                                    <center>
-                                        <div class="" style="height: 250px;padding: 0;margin: 0;">
-                                        <table width="95%" class="" border="0" >
-                                        <!-- <div class="abc scroll" style="height: 250px;padding: 0;margin: 0;">
-                                        <table width="85%" class="sub-table scrolldown" border="0" > -->
-                                        <!-- <thead> -->
-                                            
-                                        <tr>
-                                        <th class="table-headin">
-                                                    
-                                                
-                                                    Appoint. Number
-                                                    
-                                                    </th>
-                                                <th class="table-headin">
-                                                    
-                                                
-                                                Session Title
-                                                
-                                                </th>
-                                                
-                                                <th class="table-headin">
-                                                    Doctor
-                                                </th>
-                                                <th class="table-headin">
-                                                    
-                                                    Sheduled Date & Time
-                                                    
-                                                </th>
-                                                    
-                                                </tr>
-                                        <!-- </thead> -->
-                                        <tbody>
-                                        
-                                            <?php
-                                            $nextweek=date("Y-m-d",strtotime("+1 week"));
-                                                $sqlmain= "select * from schedule inner join appointment on schedule.scheduleid=appointment.scheduleid inner join patient on patient.pid=appointment.pid inner join doctor on schedule.docid=doctor.docid  where  patient.pid=$userid  and schedule.scheduledate>='$today' order by schedule.scheduledate asc";
-                                                //echo $sqlmain;
-                                                $result= $database->query($sqlmain);
-                
-                                                if($result->num_rows==0){
-                                                    echo '<tr>
-                                                    <td colspan="4">
-                                                    <br><br><br><br>
-                                                    <center>
-                                                    <img src="../img/notfound.svg" width="25%">
-                                                    
-                                                    <br>
-                                                    <p class="heading-main12" style="margin-left: 45px;font-size:20px;color:rgb(49, 49, 49)">Nothing to show here!</p>
-                                                    <a class="non-style-link" href="schedule.php"><button  class="login-btn btn-primary-soft btn"  style="display: flex;justify-content: center;align-items: center;margin-left:20px;">&nbsp; Channel a Doctor &nbsp;</font></button>
-                                                    </a>
-                                                    </center>
-                                                    <br><br><br><br>
-                                                    </td>
-                                                    </tr>';
-                                                    
-                                                }
-                                                else{
-                                                for ( $x=0; $x<$result->num_rows;$x++){
-                                                    $row=$result->fetch_assoc();
-                                                    $scheduleid=$row["scheduleid"];
-                                                    $title=$row["title"];
-                                                    $apponum=$row["apponum"];
-                                                    $docname=$row["docname"];
-                                                    $scheduledate=$row["scheduledate"];
-                                                    $scheduletime=$row["scheduletime"];
-                                                   
-                                                    echo '<tr>
-                                                        <td style="padding:30px;font-size:25px;font-weight:700;"> &nbsp;'.
-                                                        $apponum
-                                                        .'</td>
-                                                        <td style="padding:20px;"> &nbsp;'.
-                                                        substr($title,0,30)
-                                                        .'</td>
-                                                        <td>
-                                                        '.substr($docname,0,20).'
-                                                        </td>
-                                                        <td style="text-align:center;">
-                                                            '.substr($scheduledate,0,10).' '.substr($scheduletime,0,5).'
-                                                        </td>
-
-                
-                                                       
-                                                    </tr>';
-                                                    
-                                                }
-                                            }
-                                                 
-                                            ?>
-                 
-                                            </tbody>
-                
-                                        </table>
-                                        </div>
-                                        </center>
-
-
-
-
-
-
-
-                                </td>
+                                
                             </tr>
                         </table>
                     </td>
