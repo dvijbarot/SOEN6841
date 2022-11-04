@@ -84,7 +84,12 @@
                     <td class="menu-btn menu-icon-dashbord menu-active menu-icon-dashbord-active" >
                         <a href="index.php" class="non-style-link-menu non-style-link-menu-active"><div><p class="menu-text">Dashboard</p></a></div></a>
                     </td>
-                </tr>                
+                </tr>  
+                <tr class="menu-row" >
+                    <td class="menu-btn menu-icon-patient">
+                        <a href="qresult.php" class="non-style-link-menu"><div><p class="menu-text">Assessments</p></a></div>
+                    </td>
+                </tr>              
             </table>
         </div>
         <div class="dash-body" style="margin-top: 15px">

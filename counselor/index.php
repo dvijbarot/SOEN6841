@@ -47,10 +47,10 @@
 
     //import database
     include("../connection.php");
-    $userrow = $database->query("select * from doctor where docemail='$useremail'");
+    $userrow = $database->query("select * from counselor where cemail='$useremail'");
     $userfetch=$userrow->fetch_assoc();
-    $userid= $userfetch["docid"];
-    $username=$userfetch["docname"];
+    $userid= $userfetch["cid"];
+    $username=$userfetch["cname"];
 
 
     //echo $userid;
@@ -90,7 +90,11 @@
                         <a href="patient.php" class="non-style-link-menu"><div><p class="menu-text">Patients</p></a></div>
                     </td>
                 </tr>
-                
+                <tr class="menu-row" >
+                    <td class="menu-btn menu-icon-patient">
+                        <a href="qresult.php" class="non-style-link-menu"><div><p class="menu-text">Assessments</p></a></div>
+                    </td>
+                </tr>                
             </table>
         </div>
         <div class="dash-body" style="margin-top: 15px">

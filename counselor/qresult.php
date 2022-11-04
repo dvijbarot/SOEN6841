@@ -27,7 +27,7 @@
     session_start();
 
     if(isset($_SESSION["user"])){
-        if(($_SESSION["user"])=="" or $_SESSION['usertype']!='d'){
+        if(($_SESSION["user"])=="" or $_SESSION['usertype']!='c'){
             header("location: ../login.php");
         }else{
             $useremail=$_SESSION["user"];
@@ -40,10 +40,10 @@
 
     //import database
     include("../connection.php");
-    $userrow = $database->query("select * from doctor where docemail='$useremail'");
+    $userrow = $database->query("select * from counselor where cemail='$useremail'");
     $userfetch=$userrow->fetch_assoc();
-    $userid= $userfetch["docid"];
-    $username=$userfetch["docname"];
+    $userid= $userfetch["cid"];
+    $username=$userfetch["cname"];
 
 
     //echo $userid;
