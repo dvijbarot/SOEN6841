@@ -10,6 +10,7 @@
         
     <title>Sign Up</title>
     
+    
 </head>
 <body>
 <?php
